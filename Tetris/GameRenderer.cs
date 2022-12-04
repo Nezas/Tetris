@@ -3,7 +3,7 @@ using Tetris.Interfaces;
 
 namespace Tetris
 {
-    public class GameRenderer
+    public class GameRenderer : IGameRenderer
     {
         private readonly IWriter _writer;
         private readonly Stopwatch _timer;
@@ -90,6 +90,17 @@ namespace Tetris
                     }
                 }
             }
+        }
+
+        public void DrawGameOver(int score)
+        {
+            string scoreToString = score.ToString();
+            scoreToString += new string(' ', 7 - scoreToString.Length);
+            _writer.Write("╔═════════╗", 5, 5);
+            _writer.Write("║  Game   ║", 6, 5);
+            _writer.Write("║  Over!  ║", 7, 5);
+            _writer.Write($"║ {scoreToString} ║", 8, 5);
+            _writer.Write("╚═════════╝", 9, 5);
         }
     }
 }

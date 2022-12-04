@@ -19,6 +19,17 @@
             ConsoleRows = consoleRows;
             ConsoleColumns = consoleColumns;
             FramesToMoveFigure = framesToMoveFigure;
+            InitializeGame();
+        }
+
+        private void InitializeGame()
+        {
+            Console.Title = "Tetris";
+            Console.CursorVisible = false;
+            Console.WindowHeight = ConsoleRows + 1;
+            Console.WindowWidth = ConsoleColumns;
+            Console.BufferHeight = ConsoleRows + 1;
+            Console.BufferWidth = ConsoleColumns;
         }
     }
 }
