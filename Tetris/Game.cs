@@ -13,7 +13,6 @@ namespace Tetris
         public Settings Settings { get; init; }
         public Figure Figure { get; private set; }
         public GameController GameController { get; private set; }
-        //public int[,] CurrentFigure { get; private set; }
         public int[,] TetrisField { get; init; }
 
         public List<int[,]> TetrisFigures = new List<int[,]>()
@@ -58,6 +57,12 @@ namespace Tetris
         private readonly Validator _validator;
         private readonly IGameRenderer _gameRenderer;
 
+        public Game()
+        {
+            Score = 0;
+            Level = 1;
+        }
+
         public Game(Validator validator, IGameRenderer gameRenderer)
         {
             Score = 0;
@@ -89,12 +94,12 @@ namespace Tetris
                     }
                     if (key.Key == ConsoleKey.RightArrow || key.Key == ConsoleKey.D)
                     {
-                        GameController.Submit(new RightArrow(Figure, Settings));
+                        GameController.Submit(new RightArrow(Figure, Settings.TetrisColumns));
                     }
                     if (key.Key == ConsoleKey.DownArrow || key.Key == ConsoleKey.S)
                     {
                         GameController.Submit(new DownArrow(Figure));
-                        Score += Level;
+                        AddDownScore();
                     }
                     if (key.Key == ConsoleKey.Spacebar || key.Key == ConsoleKey.UpArrow || key.Key == ConsoleKey.W)
                     {
@@ -112,7 +117,7 @@ namespace Tetris
                 {
                     AddCurrentFigureToTetrisField();
                     int lines = _validator.CheckForFullLines(TetrisField);
-                    Score += Settings.ScorePerLines[lines] * Level;
+                    AddLineScore(lines);
                     Figure.CurrentFigure = TetrisFigures[_random.Next(0, TetrisFigures.Count)];
                     Figure.Row = 0;
                     Figure.Column = 0;
@@ -172,6 +177,16 @@ namespace Tetris
             }
 
             return false;
+        }
+
+        public void AddLineScore(int lines)
+        {
+            Score += Settings.ScorePerLines[lines] * Level;
+        }
+
+        public void AddDownScore()
+        {
+            Score += Level;
         }
     }
 }

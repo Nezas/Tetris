@@ -6,17 +6,17 @@ namespace Tetris.Controls
     public class RightArrow : ICommand
     {
         private Figure _figure;
-        private Settings _settings;
+        private int _tetrisColumns;
 
-        public RightArrow(Figure figure, Settings settings)
+        public RightArrow(Figure figure, int tetrisColumns)
         {
             _figure = figure;
-            _settings = settings;
+            _tetrisColumns = tetrisColumns;
         }
 
         public void Execute()
         {
-            if (_figure.Column < _settings.TetrisColumns - _figure.CurrentFigure.GetLength(1))
+            if (_figure.Column < _tetrisColumns - _figure.CurrentFigure.GetLength(1))
             {
                 _figure.Column++;
             }
