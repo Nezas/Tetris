@@ -2,6 +2,22 @@
 {
     public class Validator
     {
+        private static Validator _instance = null;
+
+        private Validator() {}
+
+        public static Validator Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new Validator();
+                }
+                return _instance;
+            }
+        }
+
         public int CheckForFullLines(int[,] tetrisField)
         {
             int lines = 0;

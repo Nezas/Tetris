@@ -5,7 +5,6 @@ using Tetris.Writers;
 
 IWriter writer = new ConsoleWriter();
 IGameRenderer gameRenderer = new GameRenderer(writer);
-Validator validator = new Validator();
 
-Game game = new Game(validator, gameRenderer);
+Game game = new Game(Validator.Instance, gameRenderer);
 game.Start();
